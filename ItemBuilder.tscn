@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://b4vxxowyboii4"]
+
+[ext_resource type="Script" uid="uid://3knu1jfiryj" path="res://item_builder.gd" id="1_76r27"]
+[ext_resource type="PackedScene" uid="uid://cgs0u1j4mhhx5" path="res://MetalEngineBase/Inventory/ItemDescriptor/ItemDescriptor.tscn" id="2_qe8f8"]
+[ext_resource type="Script" uid="uid://bcrnrsyr12m2a" path="res://MetalEngineBase/Utils/InputScroll.gd" id="3_1mbpi"]
+[ext_resource type="PackedScene" uid="uid://7e4dyp84m12f" path="res://ItemPropertyDescriptor.tscn" id="3_20hgq"]
+
+[node name="ItemBuilder" type="PanelContainer" unique_id=2035503377 node_paths=PackedStringArray("Menu", "desc", "propDesc")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_76r27")
+Menu = NodePath("VBoxContainer/HBoxContainer/MenuBar/Open Item")
+desc = NodePath("VBoxContainer/PanelContainer/HBoxContainer/ItemDesc")
+propDesc = NodePath("VBoxContainer/PanelContainer/HBoxContainer/InputScroll/PanelContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1259687579]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1476500409]
+layout_mode = 2
+
+[node name="MenuBar" type="MenuBar" parent="VBoxContainer/HBoxContainer" unique_id=1834920244]
+layout_mode = 2
+
+[node name="NewItem" type="PopupMenu" parent="VBoxContainer/HBoxContainer/MenuBar" unique_id=1168679877]
+item_count = 4
+item_0/text = "Item"
+item_0/id = 0
+item_1/text = "Ship Part Item"
+item_1/id = 1
+item_2/text = "Missile Item"
+item_2/id = 2
+item_3/text = "Ammo Item"
+item_3/id = 3
+
+[node name="Open Item" type="PopupMenu" parent="VBoxContainer/HBoxContainer/MenuBar" unique_id=1589073430]
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=381856713]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=293353873]
+layout_mode = 2
+
+[node name="ItemDesc" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=784805534 instance=ExtResource("2_qe8f8")]
+layout_mode = 2
+
+[node name="InputScroll" type="ScrollContainer" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=540609037]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_1mbpi")
+metadata/_custom_type_script = "uid://bcrnrsyr12m2a"
+
+[node name="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/InputScroll" unique_id=418599723 instance=ExtResource("3_20hgq")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="index_pressed" from="VBoxContainer/HBoxContainer/MenuBar/NewItem" to="." method="_on_new_item_index_pressed"]
+[connection signal="index_pressed" from="VBoxContainer/HBoxContainer/MenuBar/Open Item" to="." method="_on_open_item_index_pressed"]
+[connection signal="ItemUpdated" from="VBoxContainer/PanelContainer/HBoxContainer/InputScroll/PanelContainer" to="." method="_on_panel_container_item_updated"]

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://7e4dyp84m12f"]
+
+[ext_resource type="Script" uid="uid://cimhbqk8t8t5p" path="res://item_property_descriptor.gd" id="1_0alpg"]
+[ext_resource type="PackedScene" uid="uid://irv52igireqs" path="res://Utils/Sections/CardModuleFoldableSection.tscn" id="2_encso"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=418599723]
+size_flags_horizontal = 3
+script = ExtResource("1_0alpg")
+simpleSectionScene = ExtResource("2_encso")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=550017887]
+layout_mode = 2
