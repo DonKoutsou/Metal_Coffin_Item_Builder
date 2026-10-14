@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://r705uaao8chq"]
 
-[ext_resource type="Script" uid="uid://dore1opkuf4tu" path="res://Main.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://dore1opkuf4tu" path="res://ItemBuilder/Main.gd" id="1_glv2v"]
 [ext_resource type="PackedScene" uid="uid://sf4cxl8op2tv" path="res://MetalEngineBase/Utils/ResourcePicker.tscn" id="2_uu6xs"]
 
 [node name="Control" type="Control" unique_id=794670684 node_paths=PackedStringArray("projectPicker", "basePackPicker")]

@@ -20,6 +20,7 @@ var isResource : bool = true
 func SetProperty(pName : String, value : Variant) -> void:
 	super(pName, value)
 	$VBoxContainer2/HBoxContainer/Expand.text = pName
+	
 	arr = value
 	for index : int in value.size():
 		var v = value[index]

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b4vxxowyboii4"]
 
-[ext_resource type="Script" uid="uid://3knu1jfiryj" path="res://item_builder.gd" id="1_76r27"]
+[ext_resource type="Script" uid="uid://3knu1jfiryj" path="res://ItemBuilder/item_builder.gd" id="1_76r27"]
 [ext_resource type="PackedScene" uid="uid://cgs0u1j4mhhx5" path="res://MetalEngineBase/Inventory/ItemDescriptor/ItemDescriptor.tscn" id="2_qe8f8"]
 [ext_resource type="Script" uid="uid://bcrnrsyr12m2a" path="res://MetalEngineBase/Utils/InputScroll.gd" id="3_1mbpi"]
-[ext_resource type="PackedScene" uid="uid://7e4dyp84m12f" path="res://ItemPropertyDescriptor.tscn" id="3_20hgq"]
+[ext_resource type="PackedScene" uid="uid://7e4dyp84m12f" path="res://ItemBuilder/ItemPropertyDescriptor.tscn" id="3_20hgq"]
 
 [node name="ItemBuilder" type="PanelContainer" unique_id=2035503377 node_paths=PackedStringArray("Menu", "desc", "propDesc")]
 anchors_preset = 15
