@@ -10,4 +10,4 @@ The unpacker/packer will be found here, this can be used to unpack the game file
 The unpacked files can be manually modified or the Official tools can be used instead.
 * [Card Builder](https://github.com/DonKoutsou/Metal_Coffin_Card_Builder)
 * [Dialogue Editor](https://github.com/DonKoutsou/Metal_Coffin_Dialogue_Editor)
-* [Captain Creator](https://github.com/DonKoutsou/Metal_Coffin_Dialogue_Editor)
+* [Captain Creator](https://github.com/DonKoutsou/Metal_Coffin_Captain_Creator)
