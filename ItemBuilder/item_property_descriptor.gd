@@ -56,7 +56,11 @@ func OnPropertyChanged() -> void:
 	ItemUpdated.emit()
 
 func ResaveCard() -> void:
+	var prevUID = ItemHelper.get_uid_from_tres(describedItem.resource_path)
+	
 	ResourceSaver.save(describedItem, describedItem.resource_path)
+	ItemHelper.write_uid_to_tres(describedItem.resource_path, prevUID)
+	
 	print("Card Saved At {0}".format([describedItem.resource_path]))
 
 func AddSection(sectionName : String) -> CardModuleSection:
