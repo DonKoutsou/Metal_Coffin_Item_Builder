@@ -179,6 +179,37 @@ static func write_uid_to_tres(path: String, uid: String) -> bool:
 	if file == null:
 		return false
 
-	file.store_string(content)
+	var fixed_text := restore_dependency_uids(content)
+	file.store_string(fixed_text)
+	
 	file.close()
 	return true
+
+#--------------------------------------------------------
+## Goes through each dependency, tries to recover their UID and put it into the .tres file
+##This is to be used for .tres files that lose the UID of their dependencies when loaded through a pck
+static func restore_dependency_uids(text: String) -> String:
+	var path_regex := RegEx.new()
+	path_regex.compile('path="([^"]+)"')
+
+	var output := PackedStringArray()
+
+	for line in text.split("\n"):
+		if line.begins_with("[ext_resource ") \
+		and not line.contains('uid="'):
+			var match_result := path_regex.search(line)
+
+			if match_result:
+				var path := match_result.get_string(1)
+				var uid := ResourceLoader.get_resource_uid(path)
+
+				if uid != ResourceUID.INVALID_ID:
+					var uid_text := ResourceUID.id_to_text(uid)
+					line = line.replace(
+						'path="',
+						'uid="%s" path="' % uid_text
+					)
+
+		output.append(line)
+
+	return "\n".join(output)
