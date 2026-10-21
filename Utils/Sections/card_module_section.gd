@@ -62,37 +62,6 @@ func ConfigurePassive(passive : Card_Passive) -> void:
 			moduleContainer.GetModulePropertyParent().add_child(moduleDesc)
 
 #-------------------------------------------------------------------
-##Creates a container for the module and adds it to section
-func ConfigureCard(module : CardStats) -> void:
-	if (module == null):
-		return
-	
-	modAmm += 1
-	UpdateSectionTitle()
-	
-	var moduleContainer : CardModuleDescriptor = moduleDescriptorScene.instantiate()
-	GetContainer().add_child(moduleContainer)
-	moduleContainer.title = ItemHelper.prettify_class_name(module.get_script().get_global_name())
-	moduleContainer.folded = true
-	
-	if (MaxAmm > 1):
-		moduleContainer.MoveUp.connect(ModuleMovedUp.bind(module, moduleContainer))
-		moduleContainer.MoveDown.connect(ModuleMovedDown.bind(module, moduleContainer))
-	else:
-		moduleContainer.DissableMoving()
-	
-	
-		
-	moduleContainer.Remove.connect(ModuleRemoved.bind(module))
-	
-	var props : Array[Dictionary] = ItemHelper.get_all_script_variables(module)
-	
-	for prop : Dictionary in props :
-		var moduleDesc = HandleProperty(prop, module)
-		if (moduleDesc):
-			moduleContainer.GetModulePropertyParent().add_child(moduleDesc)
-
-#-------------------------------------------------------------------
 ##Creates a container for the damage info and adds it to section
 func ConfigureShipPartUpgrade(info : ShipPartUpgrade) -> void:
 	if (info == null):
@@ -107,12 +76,12 @@ func ConfigureShipPartUpgrade(info : ShipPartUpgrade) -> void:
 	moduleContainer.folded = true
 	
 	if (MaxAmm > 1):
-		moduleContainer.MoveUp.connect(DamageInfoMovedUp.bind(info, moduleContainer))
-		moduleContainer.MoveDown.connect(DamageInfoMovedDown.bind(info, moduleContainer))
+		moduleContainer.MoveUp.connect(ShipPartUpgradeMovedUp.bind(info, moduleContainer))
+		moduleContainer.MoveDown.connect(ShipPartUpgradeMovedDown.bind(info, moduleContainer))
 	else:
 		moduleContainer.DissableMoving()
 	
-	moduleContainer.Remove.connect(DamageInfoRemoved.bind(info))
+	moduleContainer.Remove.connect(ShipPartUpgradeRemoved.bind(info))
 	
 	var props : Array[Dictionary] = ItemHelper.get_all_script_variables(info)
 	
@@ -296,17 +265,6 @@ func ModulePropertyChanged() -> void:
 	PropertyChanged.emit()
 
 #-------------------------------------------------------------------
-func AddCard() -> CardModule:
-	if (modAmm == MaxAmm):
-		print("Cant add more modules in this section")
-		return
-		
-	var newModule = await SelectCard()
-	
-	ConfigureCard(newModule)
-	return newModule
-
-#-------------------------------------------------------------------
 func AddShipPartUpgrade() -> ShipPartUpgrade:
 	if (modAmm == MaxAmm):
 		print("Cant add more modules in this section")
@@ -333,7 +291,7 @@ func SelectCard() -> CardStats:
 	return cardList[selected]
 
 #-------------------------------------------------------------------
-func ModuleMovedUp(movedModule : CardModule, moduleDesc : CardModuleDescriptor) -> void:
+func ShipPartUpgradeMovedUp(movedModule : ShipPartUpgrade, moduleDesc : CardModuleDescriptor) -> void:
 	var content = GetContainer().get_children()
 	var index = content.find(moduleDesc)
 	if (index == 0):
@@ -344,7 +302,7 @@ func ModuleMovedUp(movedModule : CardModule, moduleDesc : CardModuleDescriptor) 
 	MovedUp.emit(movedModule)
 
 #-------------------------------------------------------------------
-func ModuleMovedDown(movedModule : CardModule, moduleDesc : CardModuleDescriptor) -> void:
+func ShipPartUpgradeMovedDown(movedModule : ShipPartUpgrade, moduleDesc : CardModuleDescriptor) -> void:
 	var content = GetContainer().get_children()
 	var index = content.find(moduleDesc)
 	if (index == content.size() - 1):
@@ -356,35 +314,15 @@ func ModuleMovedDown(movedModule : CardModule, moduleDesc : CardModuleDescriptor
 	MovedDown.emit(movedModule)
 
 #-------------------------------------------------------------------
-func DamageInfoMovedUp(movedInfo : DamageInfo, moduleDesc : CardModuleDescriptor) -> void:
-	var content = GetContainer().get_children()
-	var index = content.find(moduleDesc)
-	if (index == 0):
-		printerr("Cant move more up")
-		return
-		
-	GetContainer().move_child(moduleDesc, index - 1)
-	
-	MovedUp.emit(movedInfo)
-
-#-------------------------------------------------------------------
-func  DamageInfoMovedDown(movedInfo : DamageInfo, moduleDesc : CardModuleDescriptor) -> void:
-	var content = GetContainer().get_children()
-	var index = content.find(moduleDesc)
-	if (index == content.size() - 1):
-		printerr("Cant move more down")
-		return
-		
-	GetContainer().move_child(moduleDesc, index + 1)
-	
-	MovedDown.emit(movedInfo)
-
-#-------------------------------------------------------------------
 func ModuleRemoved(removedModule : CardModule) -> void:
 	Removed.emit(removedModule)
 	modAmm -= 1
 	UpdateSectionTitle()
 
+func ShipPartUpgradeRemoved(partUp : ShipPartUpgrade) -> void:
+	Removed.emit(partUp)
+	modAmm -= 1
+	UpdateSectionTitle()
 #-------------------------------------------------------------------
 func DamageInfoRemoved(removedInfo : DamageInfo) -> void:
 	Removed.emit(removedInfo)
@@ -408,5 +346,9 @@ func ArrayPropertyChanged(index : int, newValue : Variant, arr : Array) -> void:
 
 #-------------------------------------------------------------------
 func _on_add_pressed() -> void:
-	var newCard = await AddCard()
-	Added.emit(newCard)
+	if (SectionT == SectionType.SHIP_PART_UPGRADE):
+		var upgrade = AddShipPartUpgrade()
+		Added.emit(upgrade)
+		#pass
+	#var newCard = await AddCard()
+	#Added.emit(newCard)

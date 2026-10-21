@@ -36,7 +36,6 @@ func UpdateItems() -> void:
 				
 				file_name = dir.get_next()
 	SetItem(items[currentItem])
-	#cardDesc.ConfigureCard(items[currentItem])
 
 
 func _on_open_item_index_pressed(index: int) -> void:

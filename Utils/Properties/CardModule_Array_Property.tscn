@@ -28,7 +28,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Menu Name"
 icon = ExtResource("3_jgiyr")
-alignment = 0
 expand_icon = true
 
 [node name="Add" type="Button" parent="VBoxContainer2/HBoxContainer" index="1" unique_id=187444648]

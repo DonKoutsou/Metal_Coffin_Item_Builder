@@ -5,16 +5,20 @@
 [ext_resource type="Script" uid="uid://bcrnrsyr12m2a" path="res://MetalEngineBase/Utils/InputScroll.gd" id="3_1mbpi"]
 [ext_resource type="PackedScene" uid="uid://7e4dyp84m12f" path="res://ItemBuilder/ItemPropertyDescriptor.tscn" id="3_20hgq"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w07ne"]
+bg_color = Color(0, 0, 0.501961, 1)
+
 [node name="ItemBuilder" type="PanelContainer" unique_id=2035503377 node_paths=PackedStringArray("Menu", "desc", "propDesc")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w07ne")
 script = ExtResource("1_76r27")
 Menu = NodePath("VBoxContainer/HBoxContainer/MenuBar/Open Item")
-desc = NodePath("VBoxContainer/PanelContainer/HBoxContainer/ItemDesc")
-propDesc = NodePath("VBoxContainer/PanelContainer/HBoxContainer/InputScroll/PanelContainer")
+desc = NodePath("VBoxContainer/HBoxContainer2/ItemDesc")
+propDesc = NodePath("VBoxContainer/HBoxContainer2/InputScroll/PanelContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1259687579]
 layout_mode = 2
@@ -38,26 +42,23 @@ item_3/id = 3
 
 [node name="Open Item" type="PopupMenu" parent="VBoxContainer/HBoxContainer/MenuBar" unique_id=1589073430]
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=381856713]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=293353873]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer" unique_id=293353873]
+[node name="ItemDesc" parent="VBoxContainer/HBoxContainer2" unique_id=784805534 instance=ExtResource("2_qe8f8")]
 layout_mode = 2
 
-[node name="ItemDesc" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=784805534 instance=ExtResource("2_qe8f8")]
-layout_mode = 2
-
-[node name="InputScroll" type="ScrollContainer" parent="VBoxContainer/PanelContainer/HBoxContainer" unique_id=540609037]
+[node name="InputScroll" type="ScrollContainer" parent="VBoxContainer/HBoxContainer2" unique_id=540609037]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_1mbpi")
 metadata/_custom_type_script = "uid://bcrnrsyr12m2a"
 
-[node name="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/InputScroll" unique_id=418599723 instance=ExtResource("3_20hgq")]
+[node name="PanelContainer" parent="VBoxContainer/HBoxContainer2/InputScroll" unique_id=418599723 instance=ExtResource("3_20hgq")]
 layout_mode = 2
 size_flags_vertical = 3
 
 [connection signal="index_pressed" from="VBoxContainer/HBoxContainer/MenuBar/NewItem" to="." method="_on_new_item_index_pressed"]
 [connection signal="index_pressed" from="VBoxContainer/HBoxContainer/MenuBar/Open Item" to="." method="_on_open_item_index_pressed"]
-[connection signal="ItemUpdated" from="VBoxContainer/PanelContainer/HBoxContainer/InputScroll/PanelContainer" to="." method="_on_panel_container_item_updated"]
+[connection signal="ItemUpdated" from="VBoxContainer/HBoxContainer2/InputScroll/PanelContainer" to="." method="_on_panel_container_item_updated"]
