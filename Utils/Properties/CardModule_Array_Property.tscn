@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Utils/Properties/CardModuleProperty.tscn" id="1_hk8ay"]
 [ext_resource type="Script" uid="uid://biwh7qpavifk8" path="res://Utils/Properties/card_module_array_property.gd" id="2_hk8ay"]
-[ext_resource type="Texture2D" uid="uid://sdmeemku7vj3" path="res://Utils/FoldableContainer/Plus.png" id="3_3tvhb"]
 [ext_resource type="Texture2D" uid="uid://7l7iadppuuo3" path="res://Utils/FoldableContainer/Arrow.png" id="3_jgiyr"]
 
 [node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("arrayContentParent") instance=ExtResource("1_hk8ay")]
@@ -12,9 +11,6 @@ arrayContentParent = NodePath("VBoxContainer2/MarginContainer/VBoxContainer")
 
 [node name="VBoxContainer" parent="." index="0" unique_id=1560259221]
 visible = false
-
-[node name="Remove" parent="VBoxContainer" index="1" unique_id=977116114]
-visible = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="." index="1" unique_id=860549885]
 layout_mode = 2
@@ -32,7 +28,7 @@ expand_icon = true
 
 [node name="Add" type="Button" parent="VBoxContainer2/HBoxContainer" index="1" unique_id=187444648]
 layout_mode = 2
-icon = ExtResource("3_3tvhb")
+text = "+"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2" index="1" unique_id=723069363]
 visible = false

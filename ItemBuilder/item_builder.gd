@@ -35,8 +35,30 @@ func UpdateItems() -> void:
 							Menu.add_item(crd.ItemName)
 				
 				file_name = dir.get_next()
+	
+	for g in items:
+		if (g is ShipPart):
+			var hull : ShipPartUpgrade
+			for up : ShipPartUpgrade in g.Upgrades:
+				if (up.UpgradeName == STAT_CONST.STATS.HULL):
+					hull = up
+					break
+			if (!hull):
+				var newHull = ShipPartUpgrade.new()
+				newHull.UpgradeName = STAT_CONST.STATS.HULL
+				newHull.UpgradeAmmount = 30
+				g.Upgrades.append(newHull)
+				ResaveItem(g)
+				
 	SetItem(items[currentItem])
 
+func ResaveItem(it : Item) -> void:
+	var prevUID = ItemHelper.get_uid_from_tres(it.resource_path)
+	
+	ResourceSaver.save(it, it.resource_path)
+	ItemHelper.write_uid_to_tres(it.resource_path, prevUID)
+	
+	print("Item Saved At {0}".format([it.resource_path]))
 
 func _on_open_item_index_pressed(index: int) -> void:
 	currentItem = index
