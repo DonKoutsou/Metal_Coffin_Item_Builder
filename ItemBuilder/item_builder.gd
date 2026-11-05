@@ -38,20 +38,27 @@ func UpdateItems() -> void:
 	
 	for g in items:
 		if (g is ShipPart):
+			var needResave : bool = false
+			
 			var hull : ShipPartUpgrade
 			for up : ShipPartUpgrade in g.Upgrades:
+				
+				if (up.CurrentValue != up.UpgradeAmmount):
+					up.CurrentValue = up.UpgradeAmmount
+					needResave = true
+					
 				if (up.UpgradeName == STAT_CONST.STATS.HULL):
 					hull = up
-					break
+
 			if (!hull):
 				var newHull = ShipPartUpgrade.new()
 				newHull.UpgradeName = STAT_CONST.STATS.HULL
 				newHull.UpgradeAmmount = 30
 				newHull.CurrentValue = 30
 				g.Upgrades.append(newHull)
-				ResaveItem(g)
-			else: if (hull.CurrentValue != hull.UpgradeAmmount):
-				hull.CurrentValue = hull.UpgradeAmmount
+				needResave = true
+
+			if (needResave):
 				ResaveItem(g)
 				
 				
