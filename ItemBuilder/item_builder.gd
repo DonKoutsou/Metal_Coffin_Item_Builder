@@ -47,8 +47,13 @@ func UpdateItems() -> void:
 				var newHull = ShipPartUpgrade.new()
 				newHull.UpgradeName = STAT_CONST.STATS.HULL
 				newHull.UpgradeAmmount = 30
+				newHull.CurrentValue = 30
 				g.Upgrades.append(newHull)
 				ResaveItem(g)
+			else: if (hull.CurrentValue != hull.UpgradeAmmount):
+				hull.CurrentValue = hull.UpgradeAmmount
+				ResaveItem(g)
+				
 				
 	SetItem(items[currentItem])
 
