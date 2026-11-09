@@ -6,7 +6,8 @@ class_name ItemBuilder
 @export var desc : ItemDescriptor
 @export var propDesc : ItemPropertyDescriptor
 
-var items : Array[Item]
+var items : Dictionary[Item, Dictionary]
+
 var currentItem : int = 0
 
 func _ready() -> void:
@@ -31,8 +32,37 @@ func UpdateItems() -> void:
 					if (file_name.ends_with(".tres")):
 						var crd = ResourceLoader.load(g + "/" + file_name)
 						if (crd is Item):
-							items.append(crd)
+							items.set(crd, {"Source" : g + "/" + file_name})
 							Menu.add_item(crd.ItemName)
+				
+				file_name = dir.get_next()
+	
+	print("------------------Searching for Merch------------------")
+	
+	var NewDirsToExplore :Array[String] = [Main.dirs.ModDir + "/Resources/Merch/"]
+	for g in NewDirsToExplore:
+		var dir = DirAccess.open(g)
+		if dir:
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				if dir.current_is_dir():
+					print("Found directory: " + file_name)
+					NewDirsToExplore.append(g + "/" + file_name)
+				else:
+					print("Found file: " + file_name)
+					if (file_name.ends_with(".tres")):
+						var crd = ResourceLoader.load(g + "/" + file_name)
+						if (crd is MerchandiseInfo):
+							if (crd.It.contains("uid://")):
+								var path = ResourceUID.get_id_path(ResourceUID.text_to_id(crd.It))
+								var itAbsLoc = path.replace("res:/", Main.dirs.ModDir)
+								var it : Item = ResourceLoader.load(itAbsLoc)
+								items[it].set("Merch", crd)
+							else:
+								var itAbsLoc = crd.It.replace("res:/", Main.dirs.ModDir)
+								var it : Item = ResourceLoader.load(itAbsLoc)
+								items[it].set("Merch", crd)
 				
 				file_name = dir.get_next()
 	
@@ -62,7 +92,7 @@ func UpdateItems() -> void:
 				ResaveItem(g)
 				
 				
-	SetItem(items[currentItem])
+	SetItem(currentItem)
 
 func ResaveItem(it : Item) -> void:
 	var prevUID = ItemHelper.get_uid_from_tres(it.resource_path)
@@ -74,16 +104,17 @@ func ResaveItem(it : Item) -> void:
 
 func _on_open_item_index_pressed(index: int) -> void:
 	currentItem = index
-	SetItem(items[index])
+	SetItem(index)
 	
 	
-func SetItem(it : Item) -> void:
+func SetItem(itIndex : int) -> void:
+	var it = items.keys()[itIndex]
 	desc.SetManual(it)
-	propDesc.ConfigureItem(it)
+	propDesc.ConfigureItem(it, items[it]["Merch"])
 
 
 func _on_panel_container_item_updated() -> void:
-	desc.SetManual(items[currentItem])
+	desc.SetManual(items.keys()[currentItem])
 
 
 func _on_new_item_index_pressed(index: int) -> void:
@@ -119,13 +150,15 @@ func _on_new_item_index_pressed(index: int) -> void:
 	newItem.ItemName = itemName
 	
 	if (FileAccess.file_exists(f)):
-		var existingIndex = items.find(ResourceLoader.load(f))
-		items[existingIndex] = newItem
-		currentItem = existingIndex
-		SetItem(newItem)
+		var oldIt : Item = ResourceLoader.load(f)
+		var data = items[oldIt]
+		items.erase(oldIt)
+		items.set(newItem, data)
+		currentItem = items.size()
+		SetItem(currentItem)
 	else:
-		items.append(newItem)
+		items.set(newItem, {"Source" : f}) 
 		currentItem = items.size() - 1
-		SetItem(newItem)
+		SetItem(items.size())
 	
 	ResourceSaver.save(newItem, f)

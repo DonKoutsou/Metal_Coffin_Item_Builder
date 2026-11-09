@@ -19,7 +19,7 @@ var isResource : bool = true
 
 func SetProperty(pName : String, value : Variant) -> void:
 	super(pName, value)
-	$VBoxContainer2/HBoxContainer/Expand.text = pName
+	$VBoxContainer3/HBoxContainer/Expand.text = pName
 	
 	arr = value
 	for index : int in value.size():
@@ -124,7 +124,7 @@ func _on_expand_pressed() -> void:
 
 func FoldToggled(t : bool) -> void:
 	if (t):
-		$VBoxContainer2/HBoxContainer/Expand.icon = load("res://Utils/FoldableContainer/Arrow.png")
+		$VBoxContainer3/HBoxContainer/Expand.icon = load("res://Utils/FoldableContainer/Arrow.png")
 	else:
-		$VBoxContainer2/HBoxContainer/Expand.icon = load("res://Utils/FoldableContainer/Arrow2.png")
+		$VBoxContainer3/HBoxContainer/Expand.icon = load("res://Utils/FoldableContainer/Arrow2.png")
 	arrayContentParent.get_parent().visible = !t

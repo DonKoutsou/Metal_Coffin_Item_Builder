@@ -9,8 +9,9 @@ signal ItemUpdated
 var describedItem : Item
 
 var generalSettingsSecction : CardModuleSection
+var merchSettingsSecction : CardModuleSection
 
-func ConfigureItem(it : Item) -> void:
+func ConfigureItem(it : Item, merchInfo : MerchandiseInfo) -> void:
 	describedItem = it
 	
 	print("Showing item {0} of path {1}".format([it.ItemName, it.resource_path]))
@@ -30,6 +31,21 @@ func ConfigureItem(it : Item) -> void:
 		var properyName : String = prop["name"]
 		if (wantedProps.has(properyName)):
 			generalSettingsSecction.ManualProp(prop, it)
+	
+	##Shop spawn
+	merchSettingsSecction = AddSection("MERCHENDISE INFO")
+	get_child(0).add_child(merchSettingsSecction)
+	merchSettingsSecction.DissableAdding()
+	merchSettingsSecction.PropertyChanged.connect(OnPropertyChanged)
+	merchSettingsSecction.folded = false
+	var merchProps = ItemHelper.get_all_script_variables(merchInfo)
+	
+	var merchWantedProps : PackedStringArray = ["Cost", "MaxAmmPerStage", "DontGenerateBefore"]
+	
+	for prop : Dictionary in merchProps:
+		var properyName : String = prop["name"]
+		if (merchWantedProps.has(properyName)):
+			merchSettingsSecction.ManualProp(prop, merchInfo)
 	
 func MoveUp(moved : Resource, arr : Array) -> void:
 	var index = arr.find(moved)

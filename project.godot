@@ -23,6 +23,12 @@ window/size/sharp_corners=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[file_customization]
+
+folder_colors={
+"res://MetalEngineBase/": "yellow"
+}
+
 [gui]
 
 theme/custom="uid://dq36vara0cacl"

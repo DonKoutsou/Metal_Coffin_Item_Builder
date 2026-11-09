@@ -13,19 +13,22 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ctj4c")
-nameLabel = NodePath("VBoxContainer/Label")
-removeButton = NodePath("VBoxContainer/Remove")
+nameLabel = NodePath("VBoxContainer2/VBoxContainer/Label")
+removeButton = NodePath("VBoxContainer2/VBoxContainer/Remove")
 
-[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=1560259221]
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=104923899]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer" unique_id=1656817199]
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer2" unique_id=1560259221]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer" unique_id=1656817199]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Property Name"
 
-[node name="Remove" type="Button" parent="VBoxContainer" unique_id=977116114]
+[node name="Remove" type="Button" parent="VBoxContainer2/VBoxContainer" unique_id=977116114]
 layout_mode = 2
 text = "X"
 
-[connection signal="pressed" from="VBoxContainer/Remove" to="." method="_on_remove_pressed"]
+[connection signal="pressed" from="VBoxContainer2/VBoxContainer/Remove" to="." method="_on_remove_pressed"]

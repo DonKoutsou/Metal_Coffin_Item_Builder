@@ -10,6 +10,7 @@ class_name CardModuleSection
 @export var enumScene : PackedScene
 @export var floatScene : PackedScene
 @export var stringScene : PackedScene
+@export var multiLineStringScene : PackedScene
 @export var stringFileScene : PackedScene
 @export var arrayScene : PackedScene
 
@@ -131,7 +132,9 @@ func HandleProperty(prop : Dictionary, obj : Object) -> Control:
 				moduleDesc.SetMax(str_to_var(range_data[1]))
 		
 		Variant.Type.TYPE_STRING:
-			if (hint == PropertyHint.PROPERTY_HINT_FILE):
+			if (hint == PropertyHint.PROPERTY_HINT_MULTILINE_TEXT):
+				moduleDesc = multiLineStringScene.instantiate()
+			else: if (hint == PropertyHint.PROPERTY_HINT_FILE):
 				var fileDesc : CardModuleStringFileProperty = stringFileScene.instantiate()
 				fileDesc.picker.resource_Type = FileDialog.FileMode.FILE_MODE_OPEN_FILE
 				fileDesc.picker.allowExternalLinks = false

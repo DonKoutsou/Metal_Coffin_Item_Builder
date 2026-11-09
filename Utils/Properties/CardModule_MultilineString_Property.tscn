@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://qwbhyhhw16qf"]
+
+[ext_resource type="PackedScene" uid="uid://cg2ofk6jjjdtp" path="res://Utils/Properties/CardModuleProperty.tscn" id="1_udwdw"]
+[ext_resource type="Script" uid="uid://bqi5bkub2vus5" path="res://Utils/Properties/card_module_multilinestring_file_property.gd" id="2_udwdw"]
+
+[node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("line") instance=ExtResource("1_udwdw")]
+custom_maximum_size = Vector2(-1, 150)
+script = ExtResource("2_udwdw")
+line = NodePath("VBoxContainer2/TextEdit")
+
+[node name="Label" parent="VBoxContainer2/VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="0" unique_id=1656817199]
+text = "Properwadwaji dwa aedawdwa"
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer2" parent_id_path=PackedInt32Array(104923899) index="1" unique_id=333475372]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+wrap_mode = 1
+autowrap_mode = 2
+
+[connection signal="text_changed" from="VBoxContainer2/TextEdit" to="." method="_on_text_edit_text_changed"]

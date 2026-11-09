@@ -5,13 +5,13 @@
 
 [node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("line") instance=ExtResource("1_8vb85")]
 script = ExtResource("2_haxyo")
-line = NodePath("VBoxContainer/LineEdit")
+line = NodePath("VBoxContainer2/VBoxContainer/LineEdit")
 
-[node name="Label" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="0" unique_id=1656817199]
+[node name="Label" parent="VBoxContainer2/VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="0" unique_id=1656817199]
 text = "Properwadwaji dwa aedawdwa"
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="1" unique_id=1194353346]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer2/VBoxContainer" parent_id_path=PackedInt32Array(1560259221) index="1" unique_id=1194353346]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="text_changed" from="VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="VBoxContainer2/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]

@@ -7,38 +7,38 @@
 [node name="PanelContainer" unique_id=2071651446 node_paths=PackedStringArray("arrayContentParent") instance=ExtResource("1_hk8ay")]
 custom_maximum_size = Vector2(-1, -1)
 script = ExtResource("2_hk8ay")
-arrayContentParent = NodePath("VBoxContainer2/MarginContainer/VBoxContainer")
+arrayContentParent = NodePath("VBoxContainer3/MarginContainer/VBoxContainer")
 
-[node name="VBoxContainer" parent="." index="0" unique_id=1560259221]
+[node name="VBoxContainer" parent="VBoxContainer2" parent_id_path=PackedInt32Array(104923899) index="0" unique_id=1560259221]
 visible = false
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="." index="1" unique_id=860549885]
+[node name="VBoxContainer3" type="VBoxContainer" parent="." index="1" unique_id=860549885]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2" index="0" unique_id=2029675274]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer3" index="0" unique_id=2029675274]
 custom_maximum_size = Vector2(-1, 22)
 layout_mode = 2
 
-[node name="Expand" type="Button" parent="VBoxContainer2/HBoxContainer" index="0" unique_id=1270215137]
+[node name="Expand" type="Button" parent="VBoxContainer3/HBoxContainer" index="0" unique_id=1270215137]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Menu Name"
 icon = ExtResource("3_jgiyr")
 expand_icon = true
 
-[node name="Add" type="Button" parent="VBoxContainer2/HBoxContainer" index="1" unique_id=187444648]
+[node name="Add" type="Button" parent="VBoxContainer3/HBoxContainer" index="1" unique_id=187444648]
 layout_mode = 2
 text = "+"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2" index="1" unique_id=723069363]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer3" index="1" unique_id=723069363]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer2/MarginContainer" index="0" unique_id=1809047361]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer3/MarginContainer" index="0" unique_id=1809047361]
 layout_mode = 2
 size_flags_vertical = 3
 
-[connection signal="pressed" from="VBoxContainer2/HBoxContainer/Expand" to="." method="_on_expand_pressed"]
-[connection signal="pressed" from="VBoxContainer2/HBoxContainer/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="VBoxContainer3/HBoxContainer/Expand" to="." method="_on_expand_pressed"]
+[connection signal="pressed" from="VBoxContainer3/HBoxContainer/Add" to="." method="_on_add_pressed"]
