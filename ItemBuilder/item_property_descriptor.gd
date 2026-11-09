@@ -7,12 +7,14 @@ class_name ItemPropertyDescriptor
 signal ItemUpdated
 
 var describedItem : Item
+var describedMerch : MerchandiseInfo
 
 var generalSettingsSecction : CardModuleSection
 var merchSettingsSecction : CardModuleSection
 
 func ConfigureItem(it : Item, merchInfo : MerchandiseInfo) -> void:
 	describedItem = it
+	describedMerch = merchInfo
 	
 	print("Showing item {0} of path {1}".format([it.ItemName, it.resource_path]))
 	for g in get_child(0).get_children():
@@ -78,6 +80,13 @@ func ResaveCard() -> void:
 	ItemHelper.write_uid_to_tres(describedItem.resource_path, prevUID)
 	
 	print("Item Saved At {0}".format([describedItem.resource_path]))
+	
+	var prevMerchUID = ItemHelper.get_uid_from_tres(describedMerch.resource_path)
+	
+	ResourceSaver.save(describedMerch, describedMerch.resource_path)
+	ItemHelper.write_uid_to_tres(describedMerch.resource_path, prevMerchUID)
+	
+	print("Item Saved At {0}".format([describedMerch.resource_path]))
 
 func AddSection(sectionName : String) -> CardModuleSection:
 	var section : CardModuleSection = simpleSectionScene.instantiate()
